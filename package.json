@@ -14,7 +14,7 @@
     "COPYING"
   ],
   "scripts": {
-    "test": "node --test test/",
+    "test": "node --test \"test/*.test.mjs\"",
     "typecheck": "tsc",
     "lint": "eslint src test tools",
     "build": "esbuild src/browser.mjs --bundle --minify --format=esm --outfile=dist/jsilabeador.min.js",

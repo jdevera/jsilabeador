@@ -54,7 +54,8 @@ export function parseWord(word) {
  * @returns {number}
  */
 export function findStressedSyllable(wordProgress) {
-  let stressed = null;
+  /** @type {number} */
+  let stressed;
   if (wordProgress.stressFound) {
     if (wordProgress.stressed === null) {
       throw new Error("Stressed syllable is not set for accented word");

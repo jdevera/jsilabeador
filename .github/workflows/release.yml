@@ -1,0 +1,99 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Full check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build bundle
+        run: npm run build
+
+      - name: Bundle smoke test
+        run: npm run smoke
+
+      - name: Install pylabeador (the oracle)
+        run: pip install pylabeador
+
+      - name: Crosscheck against pylabeador
+        run: npm run crosscheck
+
+  publish:
+    name: Publish to npm and GitHub
+    runs-on: ubuntu-latest
+    needs: test
+    permissions:
+      contents: write # create the GitHub release and upload the bundle
+      id-token: write # npm trusted publishing (OIDC)
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Update npm (trusted publishing needs 11.5.1+)
+        run: npm install -g npm@latest
+
+      - name: Verify tag matches package version
+        run: |
+          version=$(node -p "require('./package.json').version")
+          if [ "${GITHUB_REF_NAME}" != "v${version}" ]; then
+            echo "Tag ${GITHUB_REF_NAME} does not match package version v${version}"
+            exit 1
+          fi
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build bundle
+        run: npm run build
+
+      - name: Publish to npm
+        run: npm publish
+
+      - name: Create GitHub release with the bundle
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" dist/jsilabeador.min.js \
+            --title "${GITHUB_REF_NAME}" \
+            --generate-notes

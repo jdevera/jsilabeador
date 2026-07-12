@@ -18,15 +18,28 @@ drift, pylabeador is the oracle.
 npm install jsilabeador
 ```
 
-Or embed the bundle directly (built with `npm run build`, or taken from a
-release):
+Or load the single-file bundle without installing anything. Every published
+version is served by the npm CDNs:
 
 ```html
-<script type="module" src="jsilabeador.min.js"></script>
+<script type="module">
+  import { hyphenate } from "https://cdn.jsdelivr.net/npm/jsilabeador@0.1.0/dist/jsilabeador.min.js";
+  console.log(hyphenate("palabra")); // pa-la-bra
+</script>
+```
+
+The bundle also attaches a `jsilabeador` global, so a plain script tag works
+too:
+
+```html
+<script type="module" src="https://cdn.jsdelivr.net/npm/jsilabeador@0.1.0/dist/jsilabeador.min.js"></script>
 <script type="module">
   console.log(globalThis.jsilabeador.hyphenate("palabra")); // pa-la-bra
 </script>
 ```
+
+(unpkg.com works the same way; you can also download the file from a GitHub
+release or build it yourself with `npm run build` and self-host it.)
 
 ## Use
 

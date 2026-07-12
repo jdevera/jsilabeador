@@ -1,0 +1,39 @@
+<!doctype html>
+<!-- Manual browser smoke test: run `npm run build`, then open this file. -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>jsilabeador smoke test</title>
+  </head>
+  <body>
+    <h1>jsilabeador smoke test</h1>
+    <pre id="out">running…</pre>
+    <script type="module">
+      import { syllabify, hyphenate, syllabifyWithDetails, HyphenatorError } from "../dist/jsilabeador.min.js";
+
+      const lines = [];
+      /**
+       * @param {string} name
+       * @param {boolean} cond
+       */
+      function check(name, cond) {
+        lines.push(`${cond ? "PASS" : "FAIL"}  ${name}`);
+      }
+
+      check("syllabify", JSON.stringify(syllabify("encuentro")) === '["en","cuen","tro"]');
+      check("hyphenate", hyphenate("palabra") === "pa-la-bra");
+      const d = syllabifyWithDetails("melón");
+      check("details", d.hyphenated === "me-lón" && d.stressed === 1 && d.accented === 3);
+      let threw = false;
+      try {
+        syllabify("pm");
+      } catch (e) {
+        threw = e instanceof HyphenatorError;
+      }
+      check("error class", threw);
+      check("global attached", typeof globalThis.jsilabeador?.hyphenate === "function");
+
+      document.getElementById("out").textContent = lines.join("\n");
+    </script>
+  </body>
+</html>

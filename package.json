@@ -1,0 +1,48 @@
+{
+  "name": "jsilabeador",
+  "version": "0.1.0",
+  "description": "Automatic syllabification for Spanish words. JavaScript port of pylabeador.",
+  "type": "module",
+  "main": "./src/index.mjs",
+  "exports": {
+    ".": "./src/index.mjs"
+  },
+  "files": [
+    "src",
+    "dist",
+    "README.md",
+    "COPYING"
+  ],
+  "scripts": {
+    "test": "node --test test/",
+    "typecheck": "tsc",
+    "lint": "eslint src test tools",
+    "build": "esbuild src/browser.mjs --bundle --minify --format=esm --outfile=dist/jsilabeador.min.js",
+    "smoke": "node test/smoke-bundle.mjs",
+    "crosscheck": "node tools/crosscheck.mjs",
+    "prepublishOnly": "npm test && npm run typecheck && npm run lint && npm run build && npm run smoke"
+  },
+  "keywords": [
+    "spanish",
+    "syllabification",
+    "syllables",
+    "hyphenation",
+    "linguistics"
+  ],
+  "author": "Jacobo de Vera",
+  "license": "GPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdevera/jsilabeador.git"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^26.1.1",
+    "esbuild": "^0.28.1",
+    "eslint": "^10.7.0",
+    "typescript": "^7.0.2"
+  }
+}

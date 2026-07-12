@@ -1,5 +1,10 @@
 <!doctype html>
-<!-- Manual browser smoke test: run `npm run build`, then open this file. -->
+<!-- Manual browser smoke test: run `npm run build`, then serve the repo over
+     HTTP and open this page, e.g.:
+       python3 -m http.server 8437
+       open http://localhost:8437/test/smoke.html
+     (Opening via file:// does not work: browsers block ES-module imports
+     from local files.) -->
 <html lang="en">
   <head>
     <meta charset="utf-8" />

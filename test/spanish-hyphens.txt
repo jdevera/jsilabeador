@@ -1,6 +1,6 @@
 # ---------------------------------------------------------------------------
 # Provenance: copied verbatim from pylabeador (test/spanish-hyphens.txt)
-# at v0.9.0 (https://github.com/jdevera/pylabeador).
+# at v0.10.0 (https://github.com/jdevera/pylabeador).
 # Do not edit by hand; refresh from pylabeador when re-syncing behavior.
 # ---------------------------------------------------------------------------
 # ---------------------------------------------------------------------------

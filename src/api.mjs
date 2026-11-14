@@ -1,4 +1,4 @@
-// Port of pylabeador's api.py (v0.9.0).
+// Port of pylabeador's api.py (v0.10.0).
 //
 // jsilabeador is a derivative work of pylabeador, copyright (c) 2020
 // Jacobo de Vera Hernández, licensed under the GNU General Public License

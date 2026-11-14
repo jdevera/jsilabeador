@@ -7,12 +7,14 @@ tulengua.es ([Silabeador TIP](https://tulengua.iatext.ulpgc.es/syllables/),
 TIP: Text & Information Processing, ULPGC).
 
 This is a **fidelity port**: it reproduces pylabeador's behavior
-convention-for-convention (currently pylabeador v0.9.0), and CI
+convention-for-convention (currently pylabeador v0.10.0), and CI
 cross-validates every word of the shared test corpus against the Python
 implementation, comparing the full syllable structure. Where the two could
 drift, pylabeador is the oracle.
 
 ## Install
+
+Requires Node.js 22.13.0 or later.
 
 ```
 npm install jsilabeador
@@ -74,6 +76,15 @@ details and references.
 
 ## Development
 
+CI tests Node.js 22, 24, and 26. The crosscheck uses Python 3.15 with the
+pylabeador version pinned in `requirements-crosscheck.txt`:
+
+```
+python3 -m venv .venv
+.venv/bin/python -m pip install --require-hashes -r requirements-crosscheck.txt
+export CROSSCHECK_PYTHON="$PWD/.venv/bin/python"
+```
+
 ```
 npm test            # ported pylabeador test suites (node:test)
 npm run typecheck   # tsc --checkJs over JSDoc annotations
@@ -87,7 +98,8 @@ npm run crosscheck  # full-structure diff against pylabeador (needs python3
 `test/spanish-hyphens.txt` is copied verbatim from pylabeador and records
 what the library *currently does* (not necessarily "correct" hyphenation);
 it exists to catch behavior drift. To re-sync with a newer pylabeador, copy
-the file again and run the crosscheck.
+the file again, update `requirements-crosscheck.txt` and the tracked version
+above, and run the crosscheck.
 
 ## License
 

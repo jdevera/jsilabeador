@@ -76,6 +76,19 @@ details and references.
 
 ## Development
 
+After `npm ci`, install the Git hooks with [prek](https://prek.j178.dev/):
+
+```
+prek install
+prek run --all-files
+```
+
+The hooks check README metadata, lint, and types. `requirements-crosscheck.txt`
+is the source of truth for the tracked pylabeador version. `npm test` also
+checks that the README agrees with that pin and with the package version
+and Node.js requirement in `package.json`, so CI and releases enforce the
+same rules.
+
 CI tests Node.js 22, 24, and 26. The crosscheck uses Python 3.15 with the
 pylabeador version pinned in `requirements-crosscheck.txt`:
 

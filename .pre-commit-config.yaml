@@ -1,0 +1,23 @@
+repos:
+  - repo: local
+    hooks:
+      - id: check-metadata
+        name: Check README metadata
+        entry: node --test test/metadata.test.mjs
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: lint
+        name: ESLint
+        entry: npm run lint
+        language: system
+        pass_filenames: false
+        files: '^(src/|test/|tools/|eslint\.config\.mjs$|package(-lock)?\.json$)'
+
+      - id: typecheck
+        name: Typecheck
+        entry: npm run typecheck
+        language: system
+        pass_filenames: false
+        files: '^(src/|test/|tools/|tsconfig\.json$|package(-lock)?\.json$)'

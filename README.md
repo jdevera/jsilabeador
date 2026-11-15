@@ -25,7 +25,7 @@ version is served by the npm CDNs:
 
 ```html
 <script type="module">
-  import { hyphenate } from "https://cdn.jsdelivr.net/npm/jsilabeador@0.1.0/dist/jsilabeador.min.js";
+  import { hyphenate } from "https://cdn.jsdelivr.net/npm/jsilabeador@0.2.0/dist/jsilabeador.min.js";
   console.log(hyphenate("palabra")); // pa-la-bra
 </script>
 ```
@@ -34,7 +34,7 @@ The bundle also attaches a `jsilabeador` global, so a plain script tag works
 too:
 
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/jsilabeador@0.1.0/dist/jsilabeador.min.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/jsilabeador@0.2.0/dist/jsilabeador.min.js"></script>
 <script type="module">
   console.log(globalThis.jsilabeador.hyphenate("palabra")); // pa-la-bra
 </script>
